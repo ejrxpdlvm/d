@@ -51,7 +51,7 @@ namespace NovelpiaDownloader
             {
                 Filter = saveAsEpub ? "|*.epub" : "|*.txt"
             };
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(sfd.FileName))
             {
                 Download(NovelNoText.Text, saveAsEpub, sfd.FileName);
             }
@@ -61,7 +61,8 @@ namespace NovelpiaDownloader
         void Download(string novelNo, bool saveAsEpub, string path)
         {
             ConsoleBox.AppendText("다운로드 시작!\r\n");
-            string directory = Path.Combine(Path.GetDirectoryName(path), novelNo);
+            string parentDir = Path.GetDirectoryName(path) ?? Application.StartupPath;
+            string directory = Path.Combine(parentDir, sanitizedNovelNo);
             Directory.CreateDirectory(directory);
             int thread_num = (int)ThreadNum.Value;
             float interval = (float)IntervalNum.Value;
