@@ -61,8 +61,7 @@ namespace NovelpiaDownloader
         void Download(string novelNo, bool saveAsEpub, string path)
         {
             ConsoleBox.AppendText("다운로드 시작!\r\n");
-            string parentDir = Path.GetDirectoryName(path) ?? Application.StartupPath;
-            string directory = Path.Combine(parentDir, sanitizedNovelNo);
+            string directory = Path.Combine(Path.GetDirectoryName(path), novelNo);
             Directory.CreateDirectory(directory);
             int thread_num = (int)ThreadNum.Value;
             float interval = (float)IntervalNum.Value;
